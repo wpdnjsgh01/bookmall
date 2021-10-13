@@ -1,4 +1,4 @@
-package bookshop.vo;
+package bookshop;
 
 public class AuthorVo {
 	private Long no;

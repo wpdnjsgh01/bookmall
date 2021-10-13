@@ -1,9 +1,8 @@
-package bookshop.dao;
+package bookshop;
 
 import java.util.List;
 
-import bookshop.dao.AuthorDao;
-import bookshop.vo.AuthorVo;
+import bookshop.AuthorDao;
 
 public class AuthorDaoTest {
 	public static void main(String[] args) {

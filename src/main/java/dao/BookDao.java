@@ -74,8 +74,8 @@ public class BookDao {
 
 			// 바인딩 (binding)
 			pstmt.setString(1, vo.getTitle());
-			pstmt.setInt(1, vo.getPrice());
-			pstmt.setInt(1, vo.getCat_no());
+			pstmt.setInt(2, vo.getPrice());
+			pstmt.setInt(3, vo.getCat_no());
 
 			// 5. SQL 실행
 			int count = pstmt.executeUpdate();

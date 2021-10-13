@@ -8,7 +8,8 @@ public class BookDaoTest {
 
 	public static void main(String[] args) {
 
-		//selectTest();
+		//insert();
+		select();
 
 	}
 
