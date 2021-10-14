@@ -2,27 +2,29 @@ package test;
 
 import java.util.List;
 import dao.BookDao;
+import dto.BookDto;
 import vo.BookVo;
 
 public class BookDaoTest {
 
 	public static void main(String[] args) {
 
-		//insert();
-		select();
+		insert();
+		//select();
 
 	}
 
-	private static void select() {
-		List<BookVo> list = new BookDao().select();
+	public static void select() {
+		
+		List<BookDto> list = new BookDao().select();
 
-		for (BookVo vo : list) {
+		for (BookDto vo : list) {
 			System.out.println(vo);
 		}
 
 	}
 	
-	private static void insert() {
+	public static void insert() {
 		
 		BookVo vo = null;
 		BookDao dao = new BookDao();

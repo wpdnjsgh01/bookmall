@@ -1,27 +1,33 @@
 package test;
 
 import java.util.List;
+
+import dao.BookDao;
 import dao.CartDao;
+import dto.BookDto;
+import dto.CartDto;
 import vo.CartVo;
 
 public class CartDaoTest {
 
 	public static void main(String[] args) {
 
-		//selectTest();
+		//select();
+		//insert();
 
 	}
 
-	private static void select() {
-		List<CartVo> list = new CartDao().select();
+	public static void select() {
+		
+		List<CartDto> list = new CartDao().select();
 
-		for (CartVo vo : list) {
-			System.out.println(vo);
+		for (CartDto dto : list) {
+			System.out.println(dto);
 		}
 
 	}
 	
-	private static void insert() {
+	public static void insert() {
 		
 		CartVo vo = null;
 		CartDao dao = new CartDao();
@@ -29,14 +35,16 @@ public class CartDaoTest {
 		vo = new CartVo();
 		vo.setQuantity(1);
 		vo.setBook_no(1);
-		vo.setMember_no(2);
+		vo.setMember_no(1);
 		dao.insert(vo);
 		
 		vo = new CartVo();
-		vo.setQuantity(4);
+		vo.setQuantity(2);
 		vo.setBook_no(2);
 		vo.setMember_no(2);
 		dao.insert(vo);
+		
+		
 		
 	}
 		

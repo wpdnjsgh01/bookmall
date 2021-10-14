@@ -3,13 +3,14 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
+import dto.BookDto;
 import vo.BookVo;
 
 public class BookDao {
 
-	public List<BookVo> select() {
+	public List<BookDto> select() {
 		
-		List<BookVo> result = new ArrayList<>();
+		List<BookDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -18,7 +19,7 @@ public class BookDao {
 		
 			conn = getConnection();
 
-			String sql = "SELECT no, title, price, cat_no from book";
+			String sql = "select a.no, a.title, a.price, b.cat_name from book a, category b where a.cat_no = b.no;";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -27,16 +28,16 @@ public class BookDao {
 				int no = rs.getInt(1);
 				String title = rs.getString(2);
 				int price = rs.getInt(3);
-				int cat_no = rs.getInt(4);
+				String cat_name = rs.getString(4);
 				
-				BookVo vo = new BookVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setPrice(price);
-				vo.setCat_no(cat_no);
+				BookDto Dto = new BookDto();
+				Dto.setNo(no);
+				Dto.setTitle(title);
+				Dto.setPrice(price);
+				Dto.setCat_name(cat_name);
 				
 
-				result.add(vo);
+				result.add(Dto);
 				
 			}
 

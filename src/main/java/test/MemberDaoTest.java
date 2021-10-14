@@ -8,11 +8,12 @@ public class MemberDaoTest {
 
 	public static void main(String[] args) {
 
-		//selectTest();
+		//select();
+		//insert();
 
 	}
 
-	private static void select() {
+	public static void select() {
 		List<MemberVo> list = new MemberDao().select();
 
 		for (MemberVo vo : list) {
@@ -21,21 +22,23 @@ public class MemberDaoTest {
 
 	}
 	
-	private static void insert() {
+	public static void insert() {
 		
 		MemberVo vo = null;
 		MemberDao dao = new MemberDao();
 		
 		vo = new MemberVo();
-		vo.setName("ssun ja Park");
-		vo.setEmail("ssunjaWorld@naver.com");
+		vo.setName("제임스");
+		vo.setEmail("james@naver.com");
 		vo.setPassword("ssunjajjang");
+		vo.setPhone_number("010-3478-7932");
 		dao.insert(vo);
 		
 		vo = new MemberVo();
-		vo.setName("chul ja Kim");
+		vo.setName("알라딘");
 		vo.setEmail("ironjaWorld@naver.com");
 		vo.setPassword("ironsum");
+		vo.setPhone_number("010-3478-7932");
 		dao.insert(vo);
 		
 	}

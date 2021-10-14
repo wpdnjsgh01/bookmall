@@ -3,40 +3,44 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
-import vo.CartVo;
-import dto.CartDto;
+import dto.OrderbookDto;
+import vo.OrderbookVo;
 
-public class CartDao {
-	
-	public List<CartDto> select() {
-		List<CartDto> result = new  ArrayList<>();
+public class OrderbookDao {
+
+	public List<OrderbookDto> select() {
+		
+		List<OrderbookDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
+		
 			conn = getConnection();
-			
-			//SQL 준비
-			String sql = "select a.quantity, b.title, c.name from cart a, book b, member c where a.book_no = b.no and a.member_no = c.no";
+
+			String sql = "select a.quantity, a.price, c.order_code, b.title from order_book a, book b, `order` c where a.order_no = c.no and a.book_no = b.no";
 			pstmt = conn.prepareStatement(sql);
-			
-			//5. SQL 실행
+
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				
-				int quantity = rs.getInt(1);
-				String book_title = rs.getString(2);
-				String member_name = rs.getString(3);
-				
-				CartDto dto = new CartDto();
-				dto.setQuantity(quantity);
-				dto.setBook_title(book_title);
-				dto.setMember_name(member_name);
-				
-				result.add(dto);
-			}
 			
+			while (rs.next()) {
+				int quantity = rs.getInt(1);
+				int price = rs.getInt(2);
+				String order_code = rs.getString(3);
+				String title = rs.getString(4);
+				
+				OrderbookDto Dto = new OrderbookDto();
+				Dto.setQuantity(quantity);
+				Dto.setPrice(price);
+				Dto.setOrder_code(order_code);
+				Dto.setTitle(title);
+				
+
+				result.add(Dto);
+				
+			}
+
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -47,36 +51,37 @@ public class CartDao {
 				if (pstmt != null) {
 					pstmt.close();
 				}
-				if ( conn != null) {
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return result;
 	}
-	
-	public boolean insert(CartVo vo) {
+
+	public boolean insert(OrderbookVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			
-			//SQL 준비
-			String sql = "INSERT INTO cart values (?, ?, ?)";
+
+			// SQL 준비
+			String sql = "insert into order_book values ( ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			
-			//바인딩 (binding)
+
+			// 바인딩 (binding)
 			pstmt.setInt(1, vo.getQuantity());
-			pstmt.setInt(2, vo.getBook_no());
-			pstmt.setInt(3, vo.getMember_no());
+			pstmt.setInt(2, vo.getPrice());
+			pstmt.setInt(3, vo.getOrder_no());
+			pstmt.setInt(4, vo.getBook_no());
 			
-			//5. SQL 실행
+			// 5. SQL 실행
 			int count = pstmt.executeUpdate();
-			
+
 			result = count == 1;
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -85,19 +90,20 @@ public class CartDao {
 				if (pstmt != null) {
 					pstmt.close();
 				}
-				if ( conn != null) {
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return result;
 	}
+
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
-		
+
 		try {
 			// 1. JDBC Driver 로딩
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -105,7 +111,7 @@ public class CartDao {
 			String url = "jdbc:mysql://127.0.0.1:3306/bookmall?charset=utf8";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패: "+e);
+			System.out.println("드라이버 로딩 실패: " + e);
 		}
 		return conn;
 	}

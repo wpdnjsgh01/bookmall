@@ -7,17 +7,19 @@ import vo.CategoryVo;
 
 public class CategoryDaoTest {
 	public static void main(String[] args) {
-		insert();
+		
+		select();
+		//insert();
 	}
 	
-	private static void select() {
+	public static void select() {
 		List<CategoryVo> list = new CategoryDao().select();
 		for(CategoryVo vo : list) {
 			System.out.println(vo);
 		}
 	}
 	
-	private static void insert() {
+	public static void insert() {
 		CategoryVo vo = null;
 		CategoryDao dao = new CategoryDao();
 		

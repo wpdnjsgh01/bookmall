@@ -61,7 +61,7 @@ public class CategoryDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			System.out.println("try 진입");
+			
 			// SQL 준비
 			String sql = "INSERT INTO category values ( null, ?)";
 			pstmt = conn.prepareStatement(sql);

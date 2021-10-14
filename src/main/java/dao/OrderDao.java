@@ -3,12 +3,13 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
+import dto.OrderDto;
 import vo.OrderVo;
 
 public class OrderDao {
 
-	public List<OrderVo> select() {
-		List<OrderVo> result = new ArrayList<>();
+	public List<OrderDto> select() {
+		List<OrderDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -17,7 +18,7 @@ public class OrderDao {
 			conn = getConnection();
 
 			// SQL 준비
-			String sql = "SELECT order_code, no, price, destination, member_no from order";
+			String sql = "select a.order_code, a.no, a.price, a.destination, b.name from `order` a, member b where a.member_no = b.no";
 			pstmt = conn.prepareStatement(sql);
 
 			// 5. SQL 실행
@@ -27,17 +28,17 @@ public class OrderDao {
 				int no = rs.getInt(2);
 				int price = rs.getInt(3);
 				String destination = rs.getString(4);
-				int member_no = rs.getInt(5);
+				String member_name = rs.getString(5);
 
-				OrderVo vo = new OrderVo();
-				vo.setOrder_code(order_code);
-				vo.setNo(no);
-				vo.setPrice(price);
-				vo.setDestination(destination);
-				vo.setMember_no(member_no);
+				OrderDto dto = new OrderDto();
+				dto.setOrder_code(order_code);
+				dto.setNo(no);
+				dto.setPrice(price);
+				dto.setDestination(destination);
+				dto.setMember_name(member_name);
 				
 
-				result.add(vo);
+				result.add(dto);
 				
 			}
 
@@ -70,7 +71,7 @@ public class OrderDao {
 			conn = getConnection();
 
 			// SQL 준비
-			String sql = "insert into book values ( null, null, ?, ?, ?)";
+			String sql = "insert into `order` values ( ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 바인딩 (binding)

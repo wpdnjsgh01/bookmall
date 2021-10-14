@@ -1,11 +1,11 @@
-package vo;
+package dto;
 
-public class BookVo {
+public class BookDto {
 
 	private int no;
 	private String title;
 	private int price;
-	private int cat_no;
+	private String cat_name;
 
 	public int getNo() {
 		return no;
@@ -31,17 +31,17 @@ public class BookVo {
 		this.price = price;
 	}
 
-	public int getCat_no() {
-		return cat_no;
+	public String getCat_name() {
+		return cat_name;
 	}
 
-	public void setCat_no(int cat_no) {
-		this.cat_no = cat_no;
+	public void setCat_name(String cat_name) {
+		this.cat_name = cat_name;
 	}
 
 	@Override
 	public String toString() {
-		return "Book테이블 [ 넘버링 = " + no + ", 제목 = " + title + ", 가격 = " + price + ", 카테고리 넘버 = " + cat_no + "]";
+		return "BookDto [no=" + no + ", title=" + title + ", price=" + price + ", cat_name='" + cat_name + "']";
 	}
 
 }

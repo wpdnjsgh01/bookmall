@@ -71,7 +71,7 @@ public class MemberDao {
 			conn = getConnection();
 
 			// SQL 준비
-			String sql = "insert into book values ( null, ?, ?, ?, ?)";
+			String sql = "insert into member values ( null, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 바인딩 (binding)

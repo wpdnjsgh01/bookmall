@@ -23,7 +23,7 @@ public class CategoryVo {
 
 	@Override
 	public String toString() {
-		return "CategoryVo [no=" + no + ", cat_name=" + cat_name + "]";
+		return "Category [ 넘버링 = " + no + ", cat_name=" + cat_name + "]";
 	}
 
 }
